@@ -4,12 +4,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSearchValue } from './JS/actions/actions';
 export const Search = () => {
-  // const searchLocations = async query => {
-  //   const response = await axios.get(
-  //     API_ENDPOINT.replace('SEARCH_QUERY', query)
-  //   );
-  //   return response.data;
-  // };
   const [query, setQuery] = useState('');
   const [show, setshow] = useState(false);
   const dispatch = useDispatch();
@@ -22,6 +16,10 @@ export const Search = () => {
       dispatch(getSearchValue(query));
     }
   }, [query]);
+  useEffect(() => {
+    setshow(true);
+  }, [loading]);
+
   console.log(show);
 
   return (
@@ -39,7 +37,7 @@ export const Search = () => {
         locations.map((location, key) => (
           <div key={key}>
             <Link to={`/locations/${location.name}`}>
-              <Button key={key} onClick={() => setshow(!show)}>
+              <Button key={key} onClick={() => setshow(false)}>
                 {location.name},{location.country}
               </Button>
             </Link>
